@@ -24,6 +24,7 @@ struct ToDos : ToDoRepository, Codable{
         let jsonSavedData = try? Data(contentsOf: jsonUrl)
         if let jsonData=jsonSavedData {
             let todos = try! jsonDecoder.decode(ToDos.self, from: jsonData)
+            self.todosList = todos.todosList
             return todos
         }
         
