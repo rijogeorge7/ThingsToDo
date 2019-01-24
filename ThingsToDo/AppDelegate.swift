@@ -7,15 +7,25 @@
 //
 
 import UIKit
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var container : NSPersistentContainer!
+    var context : NSManagedObjectContext!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        container = NSPersistentContainer(name: "ToDos")
+        container.loadPersistentStores(completionHandler: { (stroreDescription, error) in
+            if error == nil {
+                self.context = self.container.viewContext
+            } else {
+                print("Error")
+            }
+    }
+        )
         return true
     }
 

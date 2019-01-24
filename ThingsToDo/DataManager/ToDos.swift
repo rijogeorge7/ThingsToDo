@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ToDos : ToDoRepository, Codable{
+struct ToDos : ToDoRepository{
 
     static let jsonFileName = "todos"
     var todosList : [ToDoSet]
@@ -17,24 +17,25 @@ struct ToDos : ToDoRepository, Codable{
     }
     
     mutating func getAllTodos() -> ToDos {
-        let documentDirectory = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
-        let jsonUrl = documentDirectory.appendingPathComponent(ToDos.jsonFileName)
-            .appendingPathExtension("json")
-        let jsonDecoder = JSONDecoder()
-        let jsonSavedData = try? Data(contentsOf: jsonUrl)
-        if let jsonData=jsonSavedData {
-            let todos = try! jsonDecoder.decode(ToDos.self, from: jsonData)
-            self.todosList = todos.todosList
-            return todos
-        }
-        
-        let notDoneTodos = createDummyNotToDoSet()
-        let doneTodos = createDummyToDoSet()
-        var toDos = ToDos()
-        todosList.append(notDoneTodos)
-        todosList.append(doneTodos)
-        toDos.todosList = self.todosList
-        return toDos
+//        let documentDirectory = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
+//        let jsonUrl = documentDirectory.appendingPathComponent(ToDos.jsonFileName)
+//            .appendingPathExtension("json")
+//        let jsonDecoder = JSONDecoder()
+//        let jsonSavedData = try? Data(contentsOf: jsonUrl)
+//        if let jsonData=jsonSavedData {
+//            let todos = try! jsonDecoder.decode(ToDos.self, from: jsonData)
+//            self.todosList = todos.todosList
+//            return todos
+//        }
+//
+//        let notDoneTodos = createDummyNotToDoSet()
+//        let doneTodos = createDummyToDoSet()
+//        var toDos = ToDos()
+//        todosList.append(notDoneTodos)
+//        todosList.append(doneTodos)
+//        toDos.todosList = self.todosList
+//        return toDos
+        return ToDos()
     }
     
     mutating func appendTodoItem(item: ToDoItem, for section: Int) {
@@ -69,16 +70,16 @@ struct ToDos : ToDoRepository, Codable{
     }
     
     func persistDataToDiskAsJson() {
-        do {
-            let documentDirectory = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
-            let jsonUrl = documentDirectory.appendingPathComponent(ToDos.jsonFileName)
-                .appendingPathExtension("json")
-            let jsonEncoder = JSONEncoder()
-            let jsonData = try jsonEncoder.encode(self)
-            try jsonData.write(to: jsonUrl)
-        } catch {
-            print(error)
-        }
+//        do {
+//            let documentDirectory = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
+//            let jsonUrl = documentDirectory.appendingPathComponent(ToDos.jsonFileName)
+//                .appendingPathExtension("json")
+//            let jsonEncoder = JSONEncoder()
+//            let jsonData = try jsonEncoder.encode(self)
+//            try jsonData.write(to: jsonUrl)
+//        } catch {
+//            print(error)
+//        }
     }
     
     

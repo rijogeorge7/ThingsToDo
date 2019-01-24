@@ -7,7 +7,7 @@
 //
 
 import Foundation
-struct ToDoSet : Codable {
+struct ToDoSet {
     var title : String
     var list : [ToDoItem]
     

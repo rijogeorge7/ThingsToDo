@@ -44,8 +44,8 @@ class ItemAddEditVC: UIViewController {
         guard let text = itemText else {
             return
         }
-        let toDoItem = ToDoItem(name: text, isDone: false)
-        tableActions?.onAddItem(section: 0, item: toDoItem)
+        //let toDoItem = ToDoItem(name: text, isDone: false)
+        //tableActions?.onAddItem(section: 0, item: toDoItem)
     }
     
     func editItem(newText: String?) {
