@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import CoreData
 
 class ToDoListVC: UIViewController {
 
     @IBOutlet weak var todoTable: UITableView!
     let dataRepository = DataManager(todoRepository: ToDos())
+    var context : NSManagedObjectContext!
     var todos : ToDos?
     let itemCellId = "ItemCell"
     let addEditSegueIdentifier = "AddEditSegue"
@@ -20,6 +22,9 @@ class ToDoListVC: UIViewController {
         super.viewDidLoad()
         todoTable.delegate = self
         todoTable.dataSource = self
+        let app = UIApplication.shared
+        let appDelegate = app.delegate as! AppDelegate
+        context = appDelegate.context
         todos = dataRepository.getAllTodos()
         navigationItem.leftBarButtonItem = editButtonItem
 //        let cell = Bundle.main.loadNibNamed("TableViewCell", owner: self, options: nil) as! TableViewCell
