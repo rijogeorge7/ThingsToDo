@@ -48,8 +48,8 @@ struct ToDos : ToDoRepository{
     }
     
     mutating func insertTodoItem(item: ToDoItem, at position: Int, for section: Int) {
-//        todosList[section].list[position] = item
-//        persistDataToStore()
+        todosList[section].insertIntoItems(item, at: position)
+        persistDataToStore()
     }
     
     mutating func deleteTodoItem(at position: Int, for section: Int) {
