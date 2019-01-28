@@ -53,8 +53,8 @@ struct ToDos : ToDoRepository{
     }
     
     mutating func deleteTodoItem(at position: Int, for section: Int) {
-//        todosList[section].list.remove(at: position)
-//        persistDataToStore()
+        context.delete(todosList[section].items[position] as! ToDoItem)
+        persistDataToStore()
     }
     
     mutating func moveToDoItem(from: IndexPath, to: IndexPath) -> [ToDoSet] {
@@ -80,7 +80,7 @@ struct ToDos : ToDoRepository{
         do{
             try context.save()
         } catch {
-            
+          print("error deleting")
         }
         }
     }

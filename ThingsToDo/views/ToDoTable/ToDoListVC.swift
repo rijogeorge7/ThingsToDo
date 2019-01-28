@@ -57,9 +57,9 @@ extension ToDoListVC : UITableViewDelegate {
     
     //swipe to delete
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        //        todos?.todosList[indexPath.section].list.remove(at: indexPath.row)
-        //        tableView.deleteRows(at: [indexPath], with: .automatic)
-        //        dataRepository.deleteTodoItem(at: indexPath.row, for: indexPath.section)
+        dataRepository.deleteTodoItem(at: indexPath.row, for: indexPath.section)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+        
     }
     
     //move raw functionality in editing mode
