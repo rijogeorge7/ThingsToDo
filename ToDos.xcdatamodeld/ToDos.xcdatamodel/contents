@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18C54" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="ToDoGroup" representedClassName="ToDoGroup" syncable="YES" codeGenerationType="class">
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ToDoItem" inverseName="group" inverseEntity="ToDoItem" syncable="YES"/>
+    <entity name="ToDoGroup" representedClassName="ToDoGroup" syncable="YES">
+        <attribute name="title" attributeType="String" syncable="YES"/>
+        <relationship name="items" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="ToDoItem" inverseName="group" inverseEntity="ToDoItem" syncable="YES"/>
     </entity>
-    <entity name="ToDoItem" representedClassName="ToDoItem" syncable="YES" codeGenerationType="class">
-        <attribute name="isDone" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ToDoGroup" inverseName="items" inverseEntity="ToDoGroup" syncable="YES"/>
+    <entity name="ToDoItem" representedClassName="ToDoItem" syncable="YES">
+        <attribute name="isDone" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <relationship name="group" maxCount="1" deletionRule="Nullify" destinationEntity="ToDoGroup" inverseName="items" inverseEntity="ToDoGroup" syncable="YES"/>
     </entity>
     <elements>
         <element name="ToDoGroup" positionX="-36" positionY="27" width="128" height="75"/>

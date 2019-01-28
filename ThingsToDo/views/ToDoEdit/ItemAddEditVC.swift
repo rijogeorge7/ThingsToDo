@@ -7,13 +7,16 @@
 //
 
 import UIKit
+import CoreData
 
 class ItemAddEditVC: UIViewController {
-
+    
     
     @IBOutlet weak var itemText: UITextField!
+    var context : NSManagedObjectContext!
     var tableActions : tableActions? = nil
     var todoItem: ToDoItem? = nil
+    var group : ToDoGroup? = nil
     var indexPath: IndexPath? = nil
     
     override func viewDidLoad() {
@@ -44,8 +47,11 @@ class ItemAddEditVC: UIViewController {
         guard let text = itemText else {
             return
         }
-        //let toDoItem = ToDoItem(name: text, isDone: false)
-        //tableActions?.onAddItem(section: 0, item: toDoItem)
+        let toDoItem = ToDoItem(context: context)
+        toDoItem.name = text
+        toDoItem.isDone = false
+        
+        tableActions?.onAddItem(section: 0, item: toDoItem)
     }
     
     func editItem(newText: String?) {

@@ -7,90 +7,107 @@
 //
 
 import Foundation
+import CoreData
+import UIKit
 
 struct ToDos : ToDoRepository{
 
-    static let jsonFileName = "todos"
-    var todosList : [ToDoSet]
+    var todosList : [ToDoGroup]
+    lazy var context : NSManagedObjectContext = {
+        let application = UIApplication.shared
+        let delegate = application.delegate as! AppDelegate
+        return delegate.context
+    }()
     init() {
-        todosList = [ToDoSet]()
+        todosList = [ToDoGroup]()
     }
     
     mutating func getAllTodos() -> ToDos {
-//        let documentDirectory = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
-//        let jsonUrl = documentDirectory.appendingPathComponent(ToDos.jsonFileName)
-//            .appendingPathExtension("json")
-//        let jsonDecoder = JSONDecoder()
-//        let jsonSavedData = try? Data(contentsOf: jsonUrl)
-//        if let jsonData=jsonSavedData {
-//            let todos = try! jsonDecoder.decode(ToDos.self, from: jsonData)
-//            self.todosList = todos.todosList
-//            return todos
-//        }
-//
-//        let notDoneTodos = createDummyNotToDoSet()
-//        let doneTodos = createDummyToDoSet()
-//        var toDos = ToDos()
-//        todosList.append(notDoneTodos)
-//        todosList.append(doneTodos)
-//        toDos.todosList = self.todosList
-//        return toDos
-        return ToDos()
-    }
+        
+        let fetchGroupRequest : NSFetchRequest<ToDoGroup> = ToDoGroup.fetchRequest()
+        var groups : [ToDoGroup]!
+        do{
+            groups = try context.fetch(fetchGroupRequest)
+        } catch {
+            
+        }
+        if groups == nil || groups.count<2 {
+            todosList.append(createDummyNotToDoSet())
+            todosList.append(createDummyToDoSet())
+        } else {
+            todosList = groups
+        }
+        
+        return self
+        }
+    
     
     mutating func appendTodoItem(item: ToDoItem, for section: Int) {
-        todosList[section].addItem(item: item)
-        persistDataToDiskAsJson()
+        todosList[section].addToItems(item)
+        persistDataToStore()
     }
     
     mutating func insertTodoItem(item: ToDoItem, at position: Int, for section: Int) {
-        todosList[section].list[position] = item
-        persistDataToDiskAsJson()
+//        todosList[section].list[position] = item
+//        persistDataToStore()
     }
     
     mutating func deleteTodoItem(at position: Int, for section: Int) {
-        todosList[section].list.remove(at: position)
-        persistDataToDiskAsJson()
+//        todosList[section].list.remove(at: position)
+//        persistDataToStore()
     }
     
     mutating func moveToDoItem(from: IndexPath, to: IndexPath) -> [ToDoSet] {
-        let fromItem = todosList[from.section].list[from.row]
-        //if let toItem = todosList[to.section].list[to.row] {
-        if todosList[to.section].list.count > to.row {
-            let toItem = todosList[to.section].list[to.row]
-            todosList[from.section].list[from.row] = toItem
-            todosList[to.section].list[to.row] = fromItem
-        } else {
-            todosList[to.section].list.append(fromItem)
-            todosList[from.section].list.remove(at: from.row)
-        }
-        
-        persistDataToDiskAsJson()
-        return todosList
+//        let fromItem = todosList[from.section].list[from.row]
+//        //if let toItem = todosList[to.section].list[to.row] {
+//        if todosList[to.section].list.count > to.row {
+//            let toItem = todosList[to.section].list[to.row]
+//            todosList[from.section].list[from.row] = toItem
+//            todosList[to.section].list[to.row] = fromItem
+//        } else {
+//            todosList[to.section].list.append(fromItem)
+//            todosList[from.section].list.remove(at: from.row)
+//        }
+//
+//        persistDataToStore()
+//        return todosList
+        return [ToDoSet]()
     }
     
-    func persistDataToDiskAsJson() {
-//        do {
-//            let documentDirectory = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
-//            let jsonUrl = documentDirectory.appendingPathComponent(ToDos.jsonFileName)
-//                .appendingPathExtension("json")
-//            let jsonEncoder = JSONEncoder()
-//            let jsonData = try jsonEncoder.encode(self)
-//            try jsonData.write(to: jsonUrl)
-//        } catch {
-//            print(error)
-//        }
+    mutating func persistDataToStore() {
+        if context.hasChanges {
+            
+        do{
+            try context.save()
+        } catch {
+            
+        }
+        }
+    }
+
+    func convertGroupsIntoToDOList(groups: [ToDoGroup]) -> [ToDoSet] {
+        var toList = [ToDoSet]()
+        for group in groups {
+            toList.append(ToDoSet(title: group.title))
+        }
+           return toList
     }
     
     
     //MARK: dummy data creation methods
     
-    private func createDummyNotToDoSet() -> ToDoSet {
-        return ToDoSet(title: "To Do")
+    private mutating func createDummyNotToDoSet() -> ToDoGroup {
+        let toDoGroup = ToDoGroup(context: context)
+        toDoGroup.title = "To Do"
+        persistDataToStore()
+        return toDoGroup
     }
     
-    private func createDummyToDoSet() -> ToDoSet {
-        return ToDoSet(title: "Done")
+    private mutating func createDummyToDoSet() -> ToDoGroup {
+        let toDoGroup = ToDoGroup(context: context)
+        toDoGroup.title = "Done"
+        persistDataToStore()
+        return toDoGroup
     }
 }
 

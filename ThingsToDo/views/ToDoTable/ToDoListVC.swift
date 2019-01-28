@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 class ToDoListVC: UIViewController {
-
+    
     @IBOutlet weak var todoTable: UITableView!
     let dataRepository = DataManager(todoRepository: ToDos())
     var context : NSManagedObjectContext!
@@ -27,17 +27,18 @@ class ToDoListVC: UIViewController {
         context = appDelegate.context
         todos = dataRepository.getAllTodos()
         navigationItem.leftBarButtonItem = editButtonItem
-//        let cell = Bundle.main.loadNibNamed("TableViewCell", owner: self, options: nil) as! TableViewCell
-//        todoTable.register(TableViewCell.self, forCellReuseIdentifier: itemCellId)
+        //        let cell = Bundle.main.loadNibNamed("TableViewCell", owner: self, options: nil) as! TableViewCell
+        //        todoTable.register(TableViewCell.self, forCellReuseIdentifier: itemCellId)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == addEditSegueIdentifier {
             let itemAddEditVC = segue.destination as! ItemAddEditVC
             itemAddEditVC.tableActions = self
+            itemAddEditVC.context = context
         }
     }
-
+    
 }
 
 extension ToDoListVC : UITableViewDelegate {
@@ -47,7 +48,8 @@ extension ToDoListVC : UITableViewDelegate {
             return
         }
         // let destinationVC = self.storyboard?.instantiateViewController(withIdentifier: "ItemAddEditVC")
-        destinationVC.todoItem = todos?.todosList[indexPath.section].list[indexPath.row]
+        destinationVC.context = context
+        destinationVC.todoItem = todos?.todosList[indexPath.section].items[indexPath.row] as! ToDoItem
         destinationVC.indexPath = indexPath
         destinationVC.tableActions = self
         navigationController?.pushViewController(destinationVC, animated: true)
@@ -55,15 +57,15 @@ extension ToDoListVC : UITableViewDelegate {
     
     //swipe to delete
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        todos?.todosList[indexPath.section].list.remove(at: indexPath.row)
-        tableView.deleteRows(at: [indexPath], with: .automatic)
-        dataRepository.deleteTodoItem(at: indexPath.row, for: indexPath.section)
+        //        todos?.todosList[indexPath.section].list.remove(at: indexPath.row)
+        //        tableView.deleteRows(at: [indexPath], with: .automatic)
+        //        dataRepository.deleteTodoItem(at: indexPath.row, for: indexPath.section)
     }
     
     //move raw functionality in editing mode
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        todos?.todosList = dataRepository.moveToDoItem(from: sourceIndexPath, to: destinationIndexPath)
-        tableView.reloadData()
+        //        todos?.todosList = dataRepository.moveToDoItem(from: sourceIndexPath, to: destinationIndexPath)
+        //        tableView.reloadData()
     }
     //editing mode
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -88,12 +90,8 @@ extension ToDoListVC : UITableViewDataSource {
         return label
     }
     
-//    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-//        return ["to dos", "Done"]
-//    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let rows = todos?.todosList[section].list.count else {
+        guard let rows = todos?.todosList[section].items.count else {
             return 0
         }
         return rows
@@ -102,8 +100,8 @@ extension ToDoListVC : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: itemCellId) as! ItemCell
         
-        guard let name = todos?.todosList[indexPath.section].list[indexPath.row].name,
-            let isDone = todos?.todosList[indexPath.section].list[indexPath.row].isDone else {
+        guard let name = (todos?.todosList[indexPath.section].items[indexPath.row] as? ToDoItem)?.name,
+            let isDone = (todos?.todosList[indexPath.section].items[indexPath.row] as? ToDoItem)?.isDone else {
                 return cell
         }
         cell.configureCell(name: name, isDone: isDone)
@@ -114,14 +112,14 @@ extension ToDoListVC : UITableViewDataSource {
 
 extension ToDoListVC : tableActions {
     func onEditItem(indexPath: IndexPath, item: ToDoItem) {
-        todos?.todosList[indexPath.section].list[indexPath.row] = item
+        todos?.todosList[indexPath.section].replaceItems(at: indexPath.row, with: item)
         todoTable.reloadData()
         dataRepository.insertTodoItem(item: item, at: indexPath.row, for: indexPath.section)
     }
     
     
     func onAddItem(section: Int, item: ToDoItem){
-        todos?.todosList[section].addItem(item: item)
+        todos?.todosList[section].addToItems(item)
         todoTable.reloadData()
         dataRepository.appendTodoItem(item: item, for: section)
     }

@@ -22,6 +22,10 @@
 		D681259721E54B5B008DE2DD /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D681259521E54B5B008DE2DD /* TableViewCell.swift */; };
 		D681259821E54B5B008DE2DD /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D681259621E54B5B008DE2DD /* TableViewCell.xib */; };
 		D681259C21E55771008DE2DD /* ItemAddEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D681259B21E55771008DE2DD /* ItemAddEditVC.swift */; };
+		D6E7E58021FCE4D400ACE56C /* ToDoGroup+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E7E57C21FCE4D400ACE56C /* ToDoGroup+CoreDataClass.swift */; };
+		D6E7E58121FCE4D400ACE56C /* ToDoGroup+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E7E57D21FCE4D400ACE56C /* ToDoGroup+CoreDataProperties.swift */; };
+		D6E7E58221FCE4D400ACE56C /* ToDoItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E7E57E21FCE4D400ACE56C /* ToDoItem+CoreDataClass.swift */; };
+		D6E7E58321FCE4D400ACE56C /* ToDoItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E7E57F21FCE4D400ACE56C /* ToDoItem+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +46,10 @@
 		D681259521E54B5B008DE2DD /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		D681259621E54B5B008DE2DD /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 		D681259B21E55771008DE2DD /* ItemAddEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemAddEditVC.swift; sourceTree = "<group>"; };
+		D6E7E57C21FCE4D400ACE56C /* ToDoGroup+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDoGroup+CoreDataClass.swift"; sourceTree = "<group>"; };
+		D6E7E57D21FCE4D400ACE56C /* ToDoGroup+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDoGroup+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		D6E7E57E21FCE4D400ACE56C /* ToDoItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDoItem+CoreDataClass.swift"; sourceTree = "<group>"; };
+		D6E7E57F21FCE4D400ACE56C /* ToDoItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDoItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +97,10 @@
 		D681258521E4275A008DE2DD /* DataManager */ = {
 			isa = PBXGroup;
 			children = (
+				D6E7E57C21FCE4D400ACE56C /* ToDoGroup+CoreDataClass.swift */,
+				D6E7E57D21FCE4D400ACE56C /* ToDoGroup+CoreDataProperties.swift */,
+				D6E7E57E21FCE4D400ACE56C /* ToDoItem+CoreDataClass.swift */,
+				D6E7E57F21FCE4D400ACE56C /* ToDoItem+CoreDataProperties.swift */,
 				D6105A0121F14ABE0042D0A1 /* ToDoSet.swift */,
 				D681258A21E42FB1008DE2DD /* ToDoRepository.swift */,
 				D681258C21E42FD8008DE2DD /* DataManager.swift */,
@@ -201,13 +213,17 @@
 				D681259C21E55771008DE2DD /* ItemAddEditVC.swift in Sources */,
 				D681259221E530C0008DE2DD /* ItemCell.swift in Sources */,
 				D6105A2721F54CB30042D0A1 /* ToDos.xcdatamodeld in Sources */,
+				D6E7E58121FCE4D400ACE56C /* ToDoGroup+CoreDataProperties.swift in Sources */,
+				D6E7E58021FCE4D400ACE56C /* ToDoGroup+CoreDataClass.swift in Sources */,
 				D681258D21E42FD8008DE2DD /* DataManager.swift in Sources */,
 				D681258B21E42FB1008DE2DD /* ToDoRepository.swift in Sources */,
 				D6105A0221F14ABE0042D0A1 /* ToDoSet.swift in Sources */,
+				D6E7E58221FCE4D400ACE56C /* ToDoItem+CoreDataClass.swift in Sources */,
 				D681258F21E5231C008DE2DD /* ToDos.swift in Sources */,
 				D681259721E54B5B008DE2DD /* TableViewCell.swift in Sources */,
 				D681257621E42746008DE2DD /* ToDoListVC.swift in Sources */,
 				D681259421E53687008DE2DD /* DataRepository.swift in Sources */,
+				D6E7E58321FCE4D400ACE56C /* ToDoItem+CoreDataProperties.swift in Sources */,
 				D681257421E42746008DE2DD /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
