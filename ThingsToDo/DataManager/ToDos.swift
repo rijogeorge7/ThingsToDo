@@ -56,8 +56,8 @@ struct ToDos : ToDoRepository{
         context.delete(todosList[section].items[position] as! ToDoItem)
         persistDataToStore()
     }
-    
-    mutating func moveToDoItem(from: IndexPath, to: IndexPath) -> [ToDoSet] {
+  
+    mutating func moveToDoItem(from fromIndex: IndexPath, to toIndex: IndexPath) {
 //        let fromItem = todosList[from.section].list[from.row]
 //        //if let toItem = todosList[to.section].list[to.row] {
 //        if todosList[to.section].list.count > to.row {
@@ -71,7 +71,15 @@ struct ToDos : ToDoRepository{
 //
 //        persistDataToStore()
 //        return todosList
-        return [ToDoSet]()
+        let fromItem = todosList[fromIndex.section].items[fromIndex.row] as! ToDoItem
+        //if todosList[toIndex.section].items.count > toIndex.row {
+            todosList[fromIndex.section].removeFromItems(fromItem)
+            todosList[toIndex.section].insertIntoItems(fromItem, at: toIndex.row)
+        //} else {
+           // todosList[toIndex.section].addToItems(fromItem)
+            //todosList[fromIndex.section].removeFromItems(fromItem)
+        //}
+        persistDataToStore()
     }
     
     mutating func persistDataToStore() {

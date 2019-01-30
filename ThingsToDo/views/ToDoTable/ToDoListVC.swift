@@ -64,8 +64,8 @@ extension ToDoListVC : UITableViewDelegate {
     
     //move raw functionality in editing mode
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        //        todos?.todosList = dataRepository.moveToDoItem(from: sourceIndexPath, to: destinationIndexPath)
-        //        tableView.reloadData()
+        dataRepository.moveToDoItem(from: sourceIndexPath, to: destinationIndexPath)
+        tableView.reloadData()
     }
     //editing mode
     override func setEditing(_ editing: Bool, animated: Bool) {

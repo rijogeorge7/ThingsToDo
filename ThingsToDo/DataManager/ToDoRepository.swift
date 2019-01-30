@@ -12,5 +12,5 @@ protocol ToDoRepository {
     mutating func appendTodoItem(item : ToDoItem, for section: Int)
     mutating func insertTodoItem(item: ToDoItem, at position: Int, for section: Int)
     mutating func deleteTodoItem(at position: Int, for section: Int)
-    mutating func moveToDoItem(from: IndexPath, to: IndexPath) -> [ToDoSet]
+    mutating func moveToDoItem(from: IndexPath, to: IndexPath) 
 }

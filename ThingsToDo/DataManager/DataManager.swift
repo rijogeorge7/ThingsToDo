@@ -30,7 +30,7 @@ class DataManager : DataRepository{
         todoRepository.deleteTodoItem(at: position, for: section)
     }
     
-    func moveToDoItem(from: IndexPath, to: IndexPath) -> [ToDoSet] {
-        return todoRepository.moveToDoItem(from: from, to: to)
+    func moveToDoItem(from: IndexPath, to: IndexPath) {
+        todoRepository.moveToDoItem(from: from, to: to)
     }
 }
